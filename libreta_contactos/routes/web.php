@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\LibretaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',[LibretaController::class, 'index'])->name('index');
+Route::get('/create',[LibretaController::class, 'create'])->name('libreta.create');
+Route::POST('/store',[LibretaController::class, 'store'])->name('libreta.store');
