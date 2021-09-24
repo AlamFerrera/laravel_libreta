@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row d-flex">
             <h4 class="p-4" style="text-transform: uppercase; font-weight: bold;">
-                Crear contacto
+                Editar contacto
             </h4>
         </div>
     </div>
@@ -18,27 +18,30 @@
 
     <div class="container mt-2">
         <div class="row mx-auto w-50">
-            <form action="{{route('libreta.store')}}" method="POST" style="width: 100%;">
+            <form action="{{route('libreta.update', $libreta)}}" style="width: 100%;" method="POST">
+                @method('PUT')
                 @csrf
 
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" value="{{old('nombre')}}" name="nombre" required>
+                    <input type="text" class="form-control" id="nombre" name="nombre"
+                           value="{{$libreta->nombre}}" required>
                 </div>
 
                 <div class="form-group">
                     <label for="correo">Email</label>
-                    <input type="email" class="form-control" id="correo" value="{{old('correo')}}" name="correo" required>
+                    <input type="email" class="form-control" id="correo" name="correo"
+                           value="{{$libreta->correo}}" required>
                 </div>
 
                 <div class="form-group">
                     <label for="tel">Teléfono</label>
                     <input type="text" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"
-                           class="form-control tel" id="tel" name="tel" value="{{old('tel')}}" required>
+                           class="form-control tel" name="tel" value="{{$libreta->telefono}}" required>
                 </div>
 
                 <div class="form-group mt-4">
-                    <input type="submit" class="btn btn-success" value="Crear">
+                    <input type="submit" class="btn btn-success" value="Modificar">
                     <a href="/" class="btn btn-danger">Volver a Inicio</a>
                 </div>
 

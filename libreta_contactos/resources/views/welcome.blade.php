@@ -30,7 +30,9 @@
     </nav>
 
     <div class="container mt-2">
-        @include('flash-message')
+       <div class="row">
+           @include('flash-message')
+       </div>
     </div>
 
     @yield('content')

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Libreta;
+use http\Env\Response;
 use Illuminate\Http\Request;
 
 class LibretaController extends Controller
@@ -57,33 +58,48 @@ class LibretaController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Libreta  $libreta
-     * @return \Illuminate\Http\Response
      */
-    public function edit(Libreta $libreta)
+    public function edit($id)
     {
-        //
+       try{
+           $libreta_id = decrypt($id);
+       }
+       catch (\Exception $e){
+           return redirect()
+               ->back()
+               ->with('error', 'Registro no válido' );
+       }
+        $libreta = Libreta::find($libreta_id);
+        return view('edit', compact('libreta'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Libreta  $libreta
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Libreta $libreta)
     {
-        //
+        Libreta::where('id', $libreta->id)->update([
+            'nombre' => $request->nombre,
+            'correo' => $request->correo,
+            'telefono' => $request->tel
+        ]);
+        return redirect()
+                ->route('index')
+                ->with('success', 'Contacto modificado correctamente');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Libreta  $libreta
-     * @return \Illuminate\Http\Response
      */
-    public function destroy(Libreta $libreta)
+    public function destroy(Request $request, Libreta $libreta)
     {
-        //
+        $libreta->delete();
+        return redirect()
+            ->route('index')
+            ->with('success', 'Contacto eliminado correctamente');
     }
 }
