@@ -15,7 +15,7 @@
             </h2>
         </div>
 
-        <div class="row w-75 mx-auto" >
+        <div class="col-12 col-md-12 table-responsive-md row w-75 mx-auto" >
             <table class="table table-hover table-striped">
                 <thead>
                 <tr>
